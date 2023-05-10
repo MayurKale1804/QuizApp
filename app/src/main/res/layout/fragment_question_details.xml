@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.quizapp.QuestionsViewModel" />
+
+        <variable
+            name="questionDetailsFragment"
+            type="com.example.quizapp.QuestionDetailsFragment" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".QuestionDetailsFragment"
+        android:background="#EE9CA7">
+
+        <TextView
+            android:id="@+id/questionDetailsTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:textColor="@color/white"
+            android:textSize="35sp"/>
+
+        <ImageView
+            android:id="@+id/detailsBookmark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cardView"
+            android:layout_width="60dp"
+            android:layout_height="48dp"
+            setImage="@{viewModel.currentQuestionModel.bookmark}"
+            tools:src="@drawable/baseline_bookmark_border"
+            android:contentDescription="bookmark Image"
+            android:layout_gravity="bottom|end"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="11dp"
+            app:cardElevation="11dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:focusable="true"
+                android:background="@drawable/gradient">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/questionNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Q"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/detailsQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@{viewModel.currentQuestionModel.question}"
+                        tools:text="Question"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/option1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:padding="10dp"
+                        android:text="@{viewModel.currentQuestionModel.options[0]}"
+                        tools:text="Option 1"
+                        android:textSize="16sp"
+                        android:checked="@{viewModel.currentQuestionModel.selectedOption == 1}"/>
+
+                    <RadioButton
+                        android:id="@+id/option2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@{viewModel.currentQuestionModel.options[1]}"
+                        tools:text="Option 2"
+                        android:textSize="16sp"
+                        android:checked="@{viewModel.currentQuestionModel.selectedOption == 2}"/>
+
+                    <RadioButton
+                        android:id="@+id/option3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@{viewModel.currentQuestionModel.options[2]}"
+                        tools:text="Option 3"
+                        android:textSize="16sp"
+                        android:checked="@{viewModel.currentQuestionModel.selectedOption == 3}"/>
+
+                    <RadioButton
+                        android:id="@+id/option4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@{viewModel.currentQuestionModel.options[3]}"
+                        tools:text="Option 4"
+                        android:textSize="16sp"
+                        android:checked="@{viewModel.currentQuestionModel.selectedOption == 4}"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/previousBtn"
+            android:contentDescription="previous"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="17dp"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            android:onClick="@{() -> questionDetailsFragment.previousClick()}"/>
+
+        <TextView
+            android:id="@+id/previousText"
+            app:layout_constraintStart_toEndOf="@id/previousBtn"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="Previous"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:layout_marginTop="17dp"/>
+
+        <ImageView
+            android:id="@+id/nextBtn"
+            android:contentDescription="Next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
+            android:layout_width="60dp"
+            android:layout_height="70dp"
+            android:src="@drawable/baseline_navigate_next_24"
+            android:onClick="@{() -> questionDetailsFragment.nextClick()}"/>
+
+        <TextView
+            android:id="@+id/nextText"
+            app:layout_constraintEnd_toStartOf="@id/nextBtn"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="5dp"/>
+
+        <Button
+            android:id="@+id/detailsSubmitBtn"
+            android:contentDescription="submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:text="submit"
+            android:onClick="@{() -> questionDetailsFragment.showDialogue()}"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
